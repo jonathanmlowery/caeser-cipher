@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <iostream>
 #include <string>
 
@@ -69,14 +68,6 @@ int main(int argc, char* argv []) {
     } else {
         // handle direct text input
     }
-
-    // execute cipher
-
-    std::cout << mode << '\n';
-    std::cout << input << '\n';
-    std::cout << input_file << '\n';
-    std::cout << output_file << '\n';
-    std::cout << offset << '\n';
 
     return 0;
 }
