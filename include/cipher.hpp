@@ -3,7 +3,9 @@
 
 namespace cipher {
 
-enum Mode { ENCRYPT, DECRYPT };
+enum Mode { UNSET, ENCRYPT, DECRYPT };
+
+char shift_char(char initial, int offset);
 
 }    // namespace cipher
 
