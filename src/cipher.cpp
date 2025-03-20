@@ -1,5 +1,7 @@
 #include "cipher.hpp"
 
+#include <string>
+
 namespace cipher {
 
 char shift_char(char initial, int offset) {
@@ -24,6 +26,16 @@ char shift_char(char initial, int offset) {
     int shifted_alphabet_index = (alphabet_index + offset + 26) % 26;
 
     return (shifted_alphabet_index + 65) + (!is_uppercase * 32);
+}
+
+std::string shift_str(std::string& str, int offset) {
+    std::string shifted_str = "";
+
+    for (int i = 0; i < str.length(); i++) {
+        shifted_str += shift_char(str [i], offset);
+    }
+
+    return shifted_str;
 }
 
 }    // namespace cipher
