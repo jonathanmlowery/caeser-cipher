@@ -25,19 +25,19 @@ This program encrypts or decrypts text using the **Caesar cipher**. You can spec
 ```sh
 ./caesar-cipher -E "hello world" -k 3
 ```
-🔹 **Encrypts** `"hello world"` with shift **3**, outputs to **stdout**.
+**Encrypts** `"hello world"` with shift **3**, outputs to **stdout**.
 
 ### **Decrypting from a file and saving output:**
 ```sh
 ./caesar-cipher -d input.txt -k 5 -o decrypted.txt
 ```
-🔹 **Reads** `input.txt`, **decrypts** using key **5**, and **writes** to `decrypted.txt`.
+**Reads** `input.txt`, **decrypts** using key **5**, and **writes** to `decrypted.txt`.
 
 ### **Encrypting interactively (prompt for missing values):**
 ```sh
 ./caesar-cipher -e -o encrypted.txt
 ```
-🔹 **Prompts** for the input file and shift key.
+**Prompts** for the input file and shift key.
 
 ### **Incorrect Usage (Missing Key Argument):**
 ```sh
