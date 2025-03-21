@@ -1,6 +1,5 @@
 #include <fstream>
 #include <iostream>
-#include <memory>
 #include <string>
 
 #include "cipher.hpp"
@@ -66,8 +65,7 @@ int main(int argc, char* argv []) {
         output_stream_ptr = &output_file_stream;
     }
 
-    if (input.empty()) {
-        // handle file inputs
+    if (input.empty()) {    // handle file inputs
         if (input_file_name.empty()) {
             std::cout << "Enter input file path: ";
             input_file_name = prompt::get_file_path();
@@ -75,19 +73,22 @@ int main(int argc, char* argv []) {
 
         // read file and cipher as we go
         std::ifstream input_file_stream(input_file_name);
-
-        std::string line;
+        std::string   line;
 
         while (std::getline(input_file_stream, line)) {
-            input_file_stream >> line;
-
             std::string ciphered_line = cipher::shift_str(line,
                                                           offset * mode);
-            *output_stream_ptr << ciphered_line;
+            *output_stream_ptr << ciphered_line << '\n';
         }
-    } else {
-        // handle direct text input
+
+        input_file_stream.close();
+    } else {    // handle direct text input
+        std::string ciphered_line = cipher::shift_str(input,
+                                                      offset * mode);
+        *output_stream_ptr << ciphered_line << '\n';
     }
+
+    output_file_stream.close();
 
     return 0;
 }

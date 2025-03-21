@@ -1,4 +1,5 @@
 build
+output.txt
 .vscode
 .cache
 .git
