@@ -10,7 +10,7 @@ This program encrypts or decrypts text using the **Caesar cipher**. You can spec
 
 ## Command-Line Options
 | Flag       | Argument         | Description |
-|------------|-----------------|-------------|
+|------------|------------------|-------------|
 | `-E`       | `[message]`      | **Encrypt** mode. If followed by text, encrypts it directly. |
 | `-D`       | `[message]`      | **Decrypt** mode. If followed by text, decrypts it directly. |
 | `-e`       | `[input_file]`   | **Encrypt** mode. If followed by a file path, encrypts the file’s contents. |
