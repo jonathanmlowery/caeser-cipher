@@ -1,4 +1,6 @@
+#include <fstream>
 #include <iostream>
+#include <memory>
 #include <string>
 
 #include "cipher.hpp"
@@ -7,9 +9,8 @@
 int main(int argc, char* argv []) {
     int          offset = 0;
     std::string  input;
-    std::string  output;
-    std::string  input_file;
-    std::string  output_file;
+    std::string  input_file_name;
+    std::string  output_file_name;
     cipher::Mode mode = cipher::UNSET;
 
     // TODO: refactor this garbage
@@ -28,10 +29,10 @@ int main(int argc, char* argv []) {
                                : cipher::ENCRYPT;    // -e
 
             if (i + 1 < argc && argv [i + 1][0] != '-') {
-                input_file = argv [++i];
+                input_file_name = argv [++i];
             }
         } else if (arg == "-o") {
-            if (i + 1 < argc) { output_file = argv [++i]; }
+            if (i + 1 < argc) { output_file_name = argv [++i]; }
         } else if (arg == "-k") {
             if (i + 1 < argc) { offset = std::stoi(argv [++i]); }
         }
@@ -39,7 +40,6 @@ int main(int argc, char* argv []) {
 
     // prompt user for any inputs still needed
     // TODO: refactor this too
-
     if (mode == cipher::UNSET) {
         std::cout << "Enter e to encrypt, d to decrypt: ";
         switch (prompt::get_char_option("ed")) {
@@ -57,14 +57,34 @@ int main(int argc, char* argv []) {
         offset = prompt::get_int(1, 25);
     }
 
+    // configure output stream of either cout or the output file
+    std::ostream* output_stream_ptr = &std::cout;
+    std::ofstream output_file_stream;
+
+    if (!output_file_name.empty()) {
+        output_file_stream.open(output_file_name);
+        output_stream_ptr = &output_file_stream;
+    }
+
     if (input.empty()) {
         // handle file inputs
-        if (input_file.empty()) {
+        if (input_file_name.empty()) {
             std::cout << "Enter input file path: ";
-            input_file = prompt::get_file_path();
+            input_file_name = prompt::get_file_path();
         }
 
         // read file and cipher as we go
+        std::ifstream input_file_stream(input_file_name);
+
+        std::string line;
+
+        while (std::getline(input_file_stream, line)) {
+            input_file_stream >> line;
+
+            std::string ciphered_line = cipher::shift_str(line,
+                                                          offset * mode);
+            *output_stream_ptr << ciphered_line;
+        }
     } else {
         // handle direct text input
     }

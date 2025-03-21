@@ -4,7 +4,7 @@
 #include <string>
 namespace cipher {
 
-enum Mode { UNSET, ENCRYPT, DECRYPT };
+enum Mode { DECRYPT = -1, UNSET = 0, ENCRYPT = 1 };
 
 char        shift_char(char initial, int offset);
 std::string shift_str(std::string& str, int offset);
