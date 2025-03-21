@@ -52,3 +52,37 @@ The program will **detect the missing key** and **prompt for it**.
 - `-E` and `-D` (uppercase) **can take a message directly**.  
 - `-e` and `-d` (lowercase) **can take a file path**.  
 - `-o` and `-k` **must** be followed by an argument.  
+
+---
+
+## Building
+
+### Prerequisites
+Make sure you have the following installed:
+- **CMake** (version 3.10 or higher)
+- **A C++ compiler** (GCC, Clang, MSVC, etc.)
+
+### Build Instructions
+
+#### 1. Configure and Generate Build Files
+Run the following command from the project root:
+```sh
+cmake -S . -B build
+```
+
+#### 2. Compile the Project
+Build the project with:
+```sh
+cmake --build build
+```
+
+This will generate the executable `caesar-cipher` inside the `build/` directory.
+
+#### 3. Running the Program
+Once compiled, you can run the program like this:
+```sh
+./build/caesar-cipher [options]
+```
+
+
+
