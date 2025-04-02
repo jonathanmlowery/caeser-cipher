@@ -12,7 +12,6 @@ int main(int argc, char* argv []) {
     std::string  output_file_name;
     cipher::Mode mode = cipher::UNSET;
 
-    // TODO: refactor this garbage
     // configure inputs given as execution arguments
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv [i];
@@ -20,9 +19,7 @@ int main(int argc, char* argv []) {
             mode = arg == "-D" ? cipher::DECRYPT     // -D
                                : cipher::ENCRYPT;    // -E
 
-            if (i + 1 < argc && argv [i + 1][0] != '-') {
-                input = argv [++i];
-            }
+            if (i + 1 < argc && argv [i + 1][0] != '-') { input = argv [++i]; }
         } else if (arg == "-d" || arg == "-e") {
             mode = arg == "-d" ? cipher::DECRYPT     // -d
                                : cipher::ENCRYPT;    // -e
@@ -38,7 +35,6 @@ int main(int argc, char* argv []) {
     }
 
     // prompt user for any inputs still needed
-    // TODO: refactor this too
     if (mode == cipher::UNSET) {
         std::cout << "Enter e to encrypt, d to decrypt: ";
         switch (prompt::get_char_option("ed")) {
@@ -51,10 +47,8 @@ int main(int argc, char* argv []) {
         }
     }
 
-    if (offset > 25 || offset < 1) {
-        std::cout << "Enter a key value between 1 and 25: ";
-        offset = prompt::get_int(1, 25);
-    }
+    std::cout << "Enter a key value between 1 and 25: ";
+    offset = prompt::get_int(1, 25);
 
     // configure output stream of either cout or the output file
     std::ostream* output_stream_ptr = &std::cout;
@@ -76,15 +70,13 @@ int main(int argc, char* argv []) {
         std::string   line;
 
         while (std::getline(input_file_stream, line)) {
-            std::string ciphered_line = cipher::shift_str(line,
-                                                          offset * mode);
+            std::string ciphered_line = cipher::shift_str(line, offset * mode);
             *output_stream_ptr << ciphered_line << '\n';
         }
 
         input_file_stream.close();
     } else {    // handle direct text input
-        std::string ciphered_line = cipher::shift_str(input,
-                                                      offset * mode);
+        std::string ciphered_line = cipher::shift_str(input, offset * mode);
         *output_stream_ptr << ciphered_line << '\n';
     }
 
