@@ -6,8 +6,17 @@
 
 // #include <ostream>
 
-namespace prompt {
+namespace prompt {    // prompts to keep asking user for valid input
 
+/**
+ * Keeps asking the user to pick a
+ * character option until they pick one in
+ * of the choices given
+ * @param options Array of chars that each represent a choice for the user
+ * @param istream Input stream (defaults to std::cin)
+ * @param ostream Output stream (defaults to std::cout)
+ * @return char option that was selected
+ */
 char get_char_option(const char*   options,
                      std::istream& istream,
                      std::ostream& ostream) {
@@ -31,10 +40,16 @@ char get_char_option(const char*   options,
     }
 }
 
-int get_int(int           min,
-            int           max,
-            std::istream& istream,
-            std::ostream& ostream) {
+/**
+ * Keeps asking the user to enter an integer
+ * until they provide a valid one
+ * @param min Minimum integer value to be accepted
+ * @param max Maximum integer value to be accepted
+ * @param istream Input stream (defaults to std::cin)
+ * @param ostream Output stream (defaults to std::cout)
+ * @return int provided by the user
+ */
+int get_int(int min, int max, std::istream& istream, std::ostream& ostream) {
 
     int input;
 
@@ -61,15 +76,20 @@ int get_int(int           min,
     }
 }
 
+/**
+ * Keeps asking the user to enter the path of
+ * an input file until they provide a valid one
+ * @param istream Input stream (defaults to std::cin)
+ * @param ostream Output stream (defaults to std::cout)
+ * @return string of path to valid file
+ */
 std::string get_file_path(std::istream& istream, std::ostream& ostream) {
     std::string file_path;
 
     while (true) {
         std::getline(istream, file_path);
 
-        if (std::filesystem::is_regular_file(file_path)) {
-            return file_path;
-        }
+        if (std::filesystem::is_regular_file(file_path)) { return file_path; }
 
         ostream << "Invalid file path.\nTry again: ";
     }

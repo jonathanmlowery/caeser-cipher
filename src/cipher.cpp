@@ -3,7 +3,12 @@
 #include <string>
 
 namespace cipher {
-
+/**
+ * Applies caeser cipher to an individual char
+ * @param initial Input char
+ * @param offset Number of letters to shift the input by
+ * @return Ciphered char
+ */
 char shift_char(char initial, int offset) {
     int  alphabet_index;    // A -> 0, B -> 1, ...Z -> 25
     bool is_uppercase;
@@ -28,6 +33,12 @@ char shift_char(char initial, int offset) {
     return (shifted_alphabet_index + 65) + (!is_uppercase * 32);
 }
 
+/**
+ * Applies caeser cipher to an individual string
+ * @param str Input string
+ * @param offset Number of letters to shift each character by
+ * @return Ciphered string
+ */
 std::string shift_str(std::string& str, int offset) {
     std::string shifted_str = "";
 
